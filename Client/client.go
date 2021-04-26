@@ -52,7 +52,10 @@ func GetFile(email, password, auth, phys, mac, fileName string) {
 	if err != nil {
 		log.Fatal(err)
 	} else {
-		fmt.Println(resp.Body)
+		body, err2 := ioutil.ReadAll(resp.Body)
+		if err2 == nil {
+			fmt.Println(string(body))
+		}
 	}
 }
 
@@ -82,10 +85,10 @@ func buildAuthenticator(auth string) {
 func getPhys() string {
 	data, err := ioutil.ReadFile(path)
 	if err != nil {
-		fmt.Println("File reading error", err)
+		fmt.Println("Please insert physical key to access Data", err)
 		return ""
 	}
-	fmt.Println("Contents of file:", string(data))
+	//fmt.Println("Contents of file:", string(data))
 	return strings.Split(string(data), "\n")[0]
 }
 
@@ -95,6 +98,5 @@ func main() {
 	password := "password"
 	mac := as[0]
 	//AddUser(email, password, mac)
-	GetFile(email, password, "LpDdhkKWLpwMRzPAoLAZ", getPhys(), mac, "testfile")
-	//LpDdhkKWLpwMRzPAoLAZ
+	GetFile(email, password, "uAnOVcJACrkXXOPxCFGw", getPhys(), mac, "testfile")
 }

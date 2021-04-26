@@ -86,12 +86,12 @@ func getFile(w http.ResponseWriter, r *http.Request) {
 		panic(err.Error())
 	}
 	if isAuth {
-		fmt.Fprintf(w, "1")
+		fmt.Fprintf(w, "File has been sent! Never give out information to anyone!")
 		user_id := GetId("users", "email", email)
 		retrieveFile(user_id, fileName)
 		//addAccess(user_id, GetId("folder", "fileName", fileName))
 	} else {
-		fmt.Fprintf(w, "0")
+		//fmt.Fprintf(w, "0")
 	}
 }
 
@@ -135,6 +135,7 @@ func retrieveFile(user_id, value string) bool {
 }
 
 func main() {
+	fmt.Println("running server...")
 	http.HandleFunc("/addUser", addUser)
 	http.HandleFunc("/addfile", addFile)
 	http.HandleFunc("/getfile", getFile)
